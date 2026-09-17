@@ -25,10 +25,14 @@ while True:
             todos.append(todo)
 
             # storing items in a txt file
-            file = open('todos.txt', 'w') #w means writing the file
+            file = open('todos.txt', 'w') #w means writing the file. Can also use 'a' which
+            # appends the content without it being deleted
             file.writelines(todos)
             file.close()
         case "show":
+            file = open('todos.txt', 'r')
+            todos = file.readlines()
+            file.close()
             for index, item in enumerate(todos):
                 row = f"{index + 1} - {item}"
                 print(row)
