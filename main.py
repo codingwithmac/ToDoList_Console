@@ -19,20 +19,21 @@ while True:
     match user_action:
         case "add":
             todo = input("Enter a todo: ") + "\n"
-            file = open('todos.txt', 'r') # r reads the file
-            todos = file.readlines()
-            file.close()
+
+            with open('todos.txt', 'r') as file: #file will close by this method
+                todos = file.readlines() # r reads the file
+
             todos.append(todo)
 
-            # storing items in a txt file
-            file = open('todos.txt', 'w') #w means writing the file. Can also use 'a' which
+            with open('todos.txt','w') as file: #w means writing the file. Can also use 'a' which
             # appends the content without it being deleted
-            file.writelines(todos)
-            file.close()
+
+                # storing items in a txt file
+                todos = file.writelines(todos)
+
         case "show":
-            file = open('todos.txt', 'r')
-            todos = file.readlines()
-            file.close()
+            with open('todos.txt', 'r') as file:
+                todos = file.readlines()
 
             for index, item in enumerate(todos):
                 item = item.strip('\n') #this removes the \n from the string
