@@ -27,9 +27,8 @@ while True:
 
             with open('todos.txt','w') as file: #w means writing the file. Can also use 'a' which
             # appends the content without it being deleted
-
                 # storing items in a txt file
-                todos = file.writelines(todos)
+                file.writelines(todos)
 
         case "show":
             with open('todos.txt', 'r') as file:
@@ -42,12 +41,26 @@ while True:
         case "edit":
             number = int(input("Number of the todo to edit: "))
             number = number - 1
+            with open('todos.txt', 'r') as file:
+                todos = file.readlines()
+
             new_todo = input("Enter new todo: ")
-            todos[number] = new_todo
+            todos[number] = new_todo + '\n'
+
+            with open('todos.txt','w') as file:
+                file.writelines(todos)
         case "complete":
             number = int(input("Which item you completed?: "))
-            todos.pop(number - 1)
-            print("Item has been removed.")
+
+            with open('todos.txt', 'r') as file:
+                todos = file.readlines()
+                index = number - 1
+            todo_to_remove = todos[index].strip('\n')
+            todos.pop(index)
+
+            with open('todos.txt','w') as file:
+                file.writelines(todos)
+            print(f"Todo '{todo_to_remove}' has been removed.")
         case "exit":
             break
 print("Bye!")
