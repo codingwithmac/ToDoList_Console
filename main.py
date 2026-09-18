@@ -16,51 +16,55 @@
 while True:
     user_action = input("Type add, show, edit, complete or exit: ")
     user_action = user_action.strip()
-    match user_action:
-        case "add":
-            todo = input("Enter a todo: ") + "\n"
 
-            with open('todos.txt', 'r') as file: #file will close by this method
-                todos = file.readlines() # r reads the file
+    if "add" in user_action:
+        todo = user_action[4:] #list slice operation this will only give the string starting on the index number mentioned
 
-            todos.append(todo)
+        with open('todos.txt', 'r') as file: #file will close by this method
+            todos = file.readlines() # r reads the file
 
-            with open('todos.txt','w') as file: #w means writing the file. Can also use 'a' which
-            # appends the content without it being deleted
-                # storing items in a txt file
-                file.writelines(todos)
+        todos.append(todo)
 
-        case "show":
-            with open('todos.txt', 'r') as file:
-                todos = file.readlines()
+        with open('todos.txt','w') as file: #w means writing the file. Can also use 'a' which
+        # appends the content without it being deleted
+            # storing items in a txt file
+            file.writelines(todos)
 
-            for index, item in enumerate(todos):
-                item = item.strip('\n') #this removes the \n from the string
-                row = f"{index + 1} - {item}"
-                print(row)
-        case "edit":
-            number = int(input("Number of the todo to edit: "))
-            number = number - 1
-            with open('todos.txt', 'r') as file:
-                todos = file.readlines()
+    elif "show" in user_action:
+        with open('todos.txt', 'r') as file:
+            todos = file.readlines()
 
-            new_todo = input("Enter new todo: ")
-            todos[number] = new_todo + '\n'
+        for index, item in enumerate(todos):
+            item = item.strip('\n') #this removes the \n from the string
+            row = f"{index + 1} - {item}"
+            print(row)
+    elif "edit" in user_action:
+        number = int(user_action[5:])
+        number = number - 1
+        with open('todos.txt', 'r') as file:
+            todos = file.readlines()
 
-            with open('todos.txt','w') as file:
-                file.writelines(todos)
-        case "complete":
-            number = int(input("Which item you completed?: "))
+        new_todo = input("Enter new todo: ")
+        todos[number] = new_todo + '\n'
 
-            with open('todos.txt', 'r') as file:
-                todos = file.readlines()
-                index = number - 1
-            todo_to_remove = todos[index].strip('\n')
-            todos.pop(index)
+        with open('todos.txt','w') as file:
+            file.writelines(todos)
+    elif "complete" in user_action:
+        number = int(user_action[9:])
 
-            with open('todos.txt','w') as file:
-                file.writelines(todos)
-            print(f"Todo '{todo_to_remove}' has been removed.")
-        case "exit":
-            break
+        with open('todos.txt', 'r') as file:
+            todos = file.readlines()
+            index = number - 1
+        todo_to_remove = todos[index].strip('\n')
+        todos.pop(index)
+
+        with open('todos.txt','w') as file:
+            file.writelines(todos)
+        print(f"Todo '{todo_to_remove}' has been removed.")
+    elif "exit" in user_action:
+        break
+
+    else:
+        print("Command is not valid!")
+
 print("Bye!")
