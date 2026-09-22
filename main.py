@@ -19,7 +19,7 @@ while True:
 
     if user_action.startswith("add"):
         todo = user_action[4:] #list slice operation this will only give the string starting on the index number mentioned
-        if user_action.strip() != '':
+        if user_action.strip():
             print("Todo cannot be empty.")
             continue
         with open('todos.txt', 'r') as file: #file will close by this method
