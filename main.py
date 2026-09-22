@@ -19,7 +19,9 @@ while True:
 
     if user_action.startswith("add"):
         todo = user_action[4:] #list slice operation this will only give the string starting on the index number mentioned
-
+        if user_action.strip() != '':
+            print("Todo cannot be empty.")
+            continue
         with open('todos.txt', 'r') as file: #file will close by this method
             todos = file.readlines() # r reads the file
 
@@ -39,30 +41,37 @@ while True:
             row = f"{index + 1} - {item}"
             print(row)
     elif user_action.startswith("edit"):
-        number = int(user_action[5:])
-        number = number - 1
-        with open('todos.txt', 'r') as file:
-            todos = file.readlines()
+        try:
+            number = int(user_action[5:])
+            number = number - 1
+            with open('todos.txt', 'r') as file:
+                todos = file.readlines()
 
-        new_todo = input(f"Editing '{number + 1} - {todos[number].strip()}' -> Enter new todo: ")
-        todos[number] = new_todo + '\n'
+            new_todo = input(f"Editing '{number + 1} - {todos[number].strip()}' -> Enter new todo: ")
+            todos[number] = new_todo + '\n'
 
-        with open('todos.txt','w') as file:
-            file.writelines(todos)
+            with open('todos.txt','w') as file:
+                file.writelines(todos)
+        except ValueError:
+            print("Your command is not valid. ")
+            continue
     elif user_action.startswith("complete"):
-        number = int(user_action[9:])
+        try:
+            number = int(user_action[9:])
 
-        with open('todos.txt', 'r') as file:
-            todos = file.readlines()
-            index = number - 1
-        todo_to_remove = todos[index].strip('\n')
-        todos.pop(index)
+            with open('todos.txt', 'r') as file:
+                todos = file.readlines()
+                index = number - 1
+            todo_to_remove = todos[index].strip('\n')
+            todos.pop(index)
 
-        with open('todos.txt','w') as file:
-            file.writelines(todos)
-        print(f"Todo '{todo_to_remove}' has been removed.")
-    elif user_action.startswith("exit"):
-        break
+            with open('todos.txt','w') as file:
+                file.writelines(todos)
+            message = f"Todo '{todo_to_remove}' has been removed from list."
+            print(message)
+        except IndexError:
+            print("There is no item with that number.")
+            continue
 
     else:
         print("Command is not valid!")
