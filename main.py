@@ -12,14 +12,15 @@
 #   >>> row
 #   '1 - throw'
 
-def get_todos(filepath): #when defining the function, the 'argument' inside
-    # the parenthesis is called a parameter.
+def get_todos(filepath="todos.txt"): #when defining the function, the 'argument' inside
+    # the parenthesis is called a parameter. Adding the file name makes it a default parameter
+    #we had to change the order of parameters due to the default parameter. The defaults go at the end
     with open('todos.txt', 'r') as file_local:  # file will close by this method
         todos_local = file_local.readlines() # r reads the file
 
     return todos_local # if no return value provided, the function returns 'None'
 
-def write_todos(filepath, todos_arg):
+def write_todos(todos_arg, filepath="todos.txt"):
     with open(filepath, 'w') as file:  # w means writing the file. Can also use 'a' which
         # appends the content without it being deleted
         # storing items in a txt file
@@ -33,15 +34,15 @@ while True:
     if user_action.startswith("add"):
         todo = user_action[4:] #list slice operation this will only give the string starting on the index number mentioned
 
-        todos = get_todos("todos.txt") #when function is called,
+        todos = get_todos() #when function is called,
         # the todos.txt is the argument value
 
         todos.append(todo + '\n')
 
-        write_todos("todos.txt", todos)
+        write_todos(todos) #default parameter in function does not require it to be placed here
 
     elif user_action.startswith("show"):
-        todos = get_todos("todos.txt")
+        todos = get_todos()
 
         for index, item in enumerate(todos):
             item = item.strip('\n') #this removes the \n from the string
@@ -51,12 +52,12 @@ while True:
         try:
             number = int(user_action[5:])
             number = number - 1
-            todos = get_todos("todos.txt")
+            todos = get_todos()
 
             new_todo = input(f"Editing '{number + 1} - {todos[number].strip()}' -> Enter new todo: ")
             todos[number] = new_todo + '\n'
 
-            write_todos("todos.txt", todos)
+            write_todos(todos)
         except ValueError:
             print("Your command is not valid. ")
             continue
@@ -64,12 +65,12 @@ while True:
         try:
             number = int(user_action[9:])
 
-            todos = get_todos("todos.txt")
+            todos = get_todos()
             index = number - 1
             todo_to_remove = todos[index].strip('\n')
             todos.pop(index)
 
-            write_todos("todos.txt", todos)
+            write_todos(todos)
             message = f"Todo '{todo_to_remove}' has been removed from list."
             print(message)
         except IndexError:
