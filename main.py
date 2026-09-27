@@ -1,6 +1,10 @@
 #from functions import get_todos, write_todos
 import functions
+import time
 
+now = time.strftime("%b %d, %Y %H:%M:%S")
+
+print(f"Today's date is {now}")
 while True:
     user_action = input("Type add, show, edit, complete or exit: ")
     user_action = user_action.strip()
