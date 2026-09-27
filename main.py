@@ -1,15 +1,5 @@
-def get_todos(filepath="todos.txt"):
-    """ Read a text file and returns the list of to-do items."""
-    with open('todos.txt', 'r') as file_local:
-        todos_local = file_local.readlines()
-
-    return todos_local #
-
-def write_todos(todos_arg, filepath="todos.txt"):
-    """Write the todo items list in the text file."""
-    with open(filepath, 'w') as file:
-        file.writelines(todos_arg)
-
+#from functions import get_todos, write_todos
+import functions
 
 while True:
     user_action = input("Type add, show, edit, complete or exit: ")
@@ -17,14 +7,14 @@ while True:
 
     if user_action.startswith("add"):
         todo = user_action[4:]
-        todos = get_todos()
+        todos = functions.get_todos()
 
         todos.append(todo + '\n')
 
-        write_todos(todos)
+        functions.write_todos(todos)
 
     elif user_action.startswith("show"):
-        todos = get_todos()
+        todos = functions.get_todos()
 
         for index, item in enumerate(todos):
             item = item.strip('\n')
@@ -34,12 +24,12 @@ while True:
         try:
             number = int(user_action[5:])
             number = number - 1
-            todos = get_todos()
+            todos = functions.get_todos()
 
             new_todo = input(f"Editing '{number + 1} - {todos[number].strip()}' -> Enter new todo: ")
             todos[number] = new_todo + '\n'
 
-            write_todos(todos)
+            functions.write_todos(todos)
         except ValueError:
             print("Your command is not valid. ")
             continue
@@ -47,12 +37,12 @@ while True:
         try:
             number = int(user_action[9:])
 
-            todos = get_todos()
+            todos = functions.get_todos()
             index = number - 1
             todo_to_remove = todos[index].strip('\n')
             todos.pop(index)
 
-            write_todos(todos)
+            functions.write_todos(todos)
             message = f"Todo '{todo_to_remove}' has been removed from list."
             print(message)
         except IndexError:
