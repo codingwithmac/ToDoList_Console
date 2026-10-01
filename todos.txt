@@ -1,7 +1,8 @@
 buy groceries
-workout
+Finish workout
 clean bathroom toilet
-pay bills
 clean vehicle
-fix garage door
-make pizza
+organize garage
+Drink coffee
+add new todo
+another todo item
