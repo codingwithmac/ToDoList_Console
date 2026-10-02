@@ -1,4 +1,3 @@
-clean vehicle
-organize garage
+clean vehicleorganize garage
 Drink coffee
 drink water
