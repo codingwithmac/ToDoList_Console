@@ -3,7 +3,7 @@ import functions
 import FreeSimpleGUI as sg
 import time
 
-sg.theme("Black")
+sg.theme("DarkBlue14")
 
 clock = sg.Text('', key="clock")
 label = sg.Text("Type in a to-do")
