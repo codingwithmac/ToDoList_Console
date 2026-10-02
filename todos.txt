@@ -1,5 +1,4 @@
 clean vehicle
 organize garage
 Drink coffee
-add new todo
-another todo item
+drink water
